@@ -19,7 +19,9 @@ or update their data.
 - **Sell passes:** add passes of each type to a reception and see its new
   total value.
 - **Input checks:** reception and card numbers are re-prompted until they are
-  in range, and unknown menu choices are rejected.
+  in range, and unknown menu choices are rejected. Anything that is not a
+  whole number where a number is expected is rejected and asked for again.
+  Closing input (Ctrl+D) ends the program cleanly.
 
 ### Pass types and prices
 
@@ -153,9 +155,6 @@ Enter `0` at the menu to quit.
   when the program exits. There is no file or database persistence.
 - **Fixed set of receptions.** There are always five receptions (0–4). They
   cannot be created or deleted from the menu.
-- **Non-numeric input ends the program.** Typing letters where a number is
-  expected throws an `InputMismatchException`. Closing input (Ctrl+D) without
-  choosing `0` throws a `NoSuchElementException`.
 - **Single-word values.** The membership type and card holder name are read as
   single words, so a name such as `John Smith` is not supported and makes the
   program exit with an error.

@@ -102,7 +102,7 @@ public class GymDemo {
             System.out.println();
             System.out.print("Please enter your choice and press <Enter>:");
 
-            int choice = kb.nextInt();
+            int choice = readInt(kb);
 
             switch (choice) {
                 case 1:
@@ -122,11 +122,11 @@ public class GymDemo {
                     // OPTION 2: SEE CONTENT OF ONE RECEPTION
                     // -----------------------------------------
                     System.out.print("Which Reception do you want to see the content of? (Enter number 0 to 4): ");
-                    int rIndex = kb.nextInt();
+                    int rIndex = readInt(kb);
                     while (rIndex < 0 || rIndex >= receptions.length) {
                         System.out.println("Sorry but there is no Reception number " + rIndex);
                         System.out.print("--> Try again: (Enter number 0 to 4): ");
-                        rIndex = kb.nextInt();
+                        rIndex = readInt(kb);
                     }
                     System.out.println(receptions[rIndex].toString());
                     break;
@@ -181,11 +181,11 @@ public class GymDemo {
                     // OPTION 6: ADD MEMBERSHIP CARD
                     // -----------------------------------------
                     System.out.print("Which Reception do you want to add a membership to? (Enter number 0 to 4): ");
-                    int addIndex = kb.nextInt();
+                    int addIndex = readInt(kb);
                     while (addIndex < 0 || addIndex >= receptions.length) {
                         System.out.println("Sorry but there is no Reception number " + addIndex);
                         System.out.print("--> Try again: (Enter number 0 to 4): ");
-                        addIndex = kb.nextInt();
+                        addIndex = readInt(kb);
                     }
 
                     System.out.println("Please enter the following information so that we may complete the membership-");
@@ -194,8 +194,8 @@ public class GymDemo {
                     System.out.print("--> name of the membership card holder: ");
                     String name = kb.next();
                     System.out.print("--> Expiry day number and month (separate by a space): ");
-                    int day = kb.nextInt();
-                    int month = kb.nextInt();
+                    int day = readInt(kb);
+                    int month = readInt(kb);
 
                     GymCard newCard = new GymCard(type, name, day, month);
 
@@ -222,11 +222,11 @@ public class GymDemo {
                     // OPTION 7: REMOVE MEMBERSHIP CARD
                     // -----------------------------------------
                     System.out.print("Which Reception do you want to remove a membership card from? (Enter number 0 to 4): ");
-                    int remIndex = kb.nextInt();
+                    int remIndex = readInt(kb);
                     while (remIndex < 0 || remIndex >= receptions.length) {
                         System.out.println("Sorry but there is no Reception number " + remIndex);
                         System.out.print("--> Try again: (Enter number 0 to 4): ");
-                        remIndex = kb.nextInt();
+                        remIndex = readInt(kb);
                     }
 
                     int nbrCards = receptions[remIndex].getGymCradsTotalAmount();
@@ -234,12 +234,12 @@ public class GymDemo {
                         System.out.println("Sorry that Reception has no membership card");
                     } else {
                         System.out.print("Which membership card do you want to remove? (Enter number 0 to " + (nbrCards - 1) + "): ");
-                        int cardIndex = kb.nextInt();
+                        int cardIndex = readInt(kb);
                         while (cardIndex < 0 || cardIndex >= nbrCards) {
                             System.out.println("Sorry but there is no membership number " + cardIndex);
                             System.out.print("--> Try again: ");
                             System.out.print("\n(Enter number 0 to " + (nbrCards - 1) + "): ");
-                            cardIndex = kb.nextInt();
+                            cardIndex = readInt(kb);
                         }
 
                         // Look up the selected card in the local copy, then ask Reception to remove it
@@ -278,11 +278,11 @@ public class GymDemo {
                     // OPTION 8: UPDATE EXPIRY DATE OF A CARD
                     // -----------------------------------------
                     System.out.print("Which Reception do you want to update a membership card from? (Enter number 0 to 4): ");
-                    int upIndex = kb.nextInt();
+                    int upIndex = readInt(kb);
                     while (upIndex < 0 || upIndex >= receptions.length) {
                         System.out.println("Sorry but there is no Reception number " + upIndex);
                         System.out.print("--> Try again: (Enter number 0 to 4): ");
-                        upIndex = kb.nextInt();
+                        upIndex = readInt(kb);
                     }
 
                     int upCards = receptions[upIndex].getGymCradsTotalAmount();
@@ -290,17 +290,17 @@ public class GymDemo {
                         System.out.println("Sorry that Reception has no membership card");
                     } else {
                         System.out.println("Which membership card do you want to update? (Enter number 0 to " + (upCards - 1) + "): ");
-                        int which = kb.nextInt();
+                        int which = readInt(kb);
                         while (which < 0 || which >= upCards) {
                             System.out.println("Sorry but there is no membership number " + which);
                             System.out.print("--> Try again: ");
                             System.out.println("\n(Enter number 0 to " + (upCards - 1) + "): ");
-                            which = kb.nextInt();
+                            which = readInt(kb);
                         }
 
                         System.out.print("--> Enter new expiry date day number and month (separate by a space): ");
-                        int newDay = kb.nextInt();
-                        int newMonth = kb.nextInt();
+                        int newDay = readInt(kb);
+                        int newMonth = readInt(kb);
 
                         receptions[upIndex].updateGymCardExpiry(which, newDay, newMonth);
 
@@ -319,21 +319,21 @@ public class GymDemo {
                     // OPTION 9: ADD GYM PASSES
                     // -----------------------------------------
                     System.out.print("Which Reception do you want to add passes to? (Enter number 0 to 4): ");
-                    int passIndex = kb.nextInt();
+                    int passIndex = readInt(kb);
                     while (passIndex < 0 || passIndex >= receptions.length) {
                         System.out.println("Sorry but there is no Reception number " + passIndex);
                         System.out.print("--> Try again: (Enter number 0 to 4): ");
-                        passIndex = kb.nextInt();
+                        passIndex = readInt(kb);
                     }
 
                     System.out.println("How many Regular Pass($7), Student Pass($5), Senior Pass($4), Weekend Pass($12) and Weekly ");
                     System.out.print("Pass($42) gym passes do you want to add?\n");
                     System.out.print("Enter 5 numbers separated by a space: ");
-                    int reg = kb.nextInt();
-                    int stu = kb.nextInt();
-                    int sen = kb.nextInt();
-                    int weekend = kb.nextInt();
-                    int weekly = kb.nextInt();
+                    int reg = readInt(kb);
+                    int stu = readInt(kb);
+                    int sen = readInt(kb);
+                    int weekend = readInt(kb);
+                    int weekly = readInt(kb);
 
                     int total = receptions[passIndex].addGymPasses(reg, stu, sen, weekend, weekly);
                     System.out.println("You now have $" + total);
@@ -357,5 +357,34 @@ public class GymDemo {
         }
 
         kb.close();
+    }
+
+    // -------------------------------------------------
+    // INPUT HELPERS
+    // -------------------------------------------------
+
+    /**
+     * Reads the next whole number. A token that is not a whole number is
+     * discarded and the user is asked again, so typing letters never crashes
+     * the program. If input ends (for example Ctrl+D), the program exits.
+     */
+    private static int readInt(Scanner kb) {
+        while (true) {
+            if (!kb.hasNext()) {
+                exitOnClosedInput();
+            }
+            if (kb.hasNextInt()) {
+                return kb.nextInt();
+            }
+            String bad = kb.next();
+            System.out.print("'" + bad + "' is not a whole number. Please enter a number: ");
+        }
+    }
+
+    /** Ends the program cleanly when there is no more input to read. */
+    private static void exitOnClosedInput() {
+        System.out.println();
+        System.out.println("Input closed. Thank you for using Gym Reception System!");
+        System.exit(0);
     }
 }
