@@ -17,6 +17,9 @@ or update their data.
 - **Manage membership cards:** add a card, remove a card by its position, and
   update a card's expiry day and month. The membership type and holder name
   are read as whole lines, so names with spaces such as `John Smith` work.
+  Expiry dates are checked against the length of each month, so a date that
+  does not exist (such as `31 2` or `31 4`) is rejected and asked for again.
+  `29 2` is accepted because cards store no year.
 - **Sell passes:** add passes of each type to a reception and see its new
   total value. Negative quantities are rejected and all five numbers are
   asked for again.
@@ -82,7 +85,7 @@ gym-reception-system/
 | `GymDemo`   | Builds five sample receptions, displays the menu, reads user input with `Scanner`, and calls into `Reception`. It keeps its own copy of each reception's cards so the user can pick a card by number. |
 | `Reception` | Holds one `GymPasses` object and an array of `GymCard` objects, deep-copying both. It compares receptions (by total value, by pass counts, and by total value plus card count), adds, removes and updates cards, adds passes, and formats its contents for display. |
 | `GymPasses` | Stores the count of Regular, Student, Senior, Weekend and Weekly passes, holds the price of each type, adds passes (rejecting negative quantities with an `IllegalArgumentException`), computes the total dollar value, and compares pass counts. |
-| `GymCard`   | Stores a membership type, holder name and expiry day/month. It validates the day (1–31) and month (1–12), stores invalid values as `0`, and formats the card as `Type - Name - DD/MM.` |
+| `GymCard`   | Stores a membership type, holder name and expiry day/month. It validates the day (1–31) and month (1–12), stores invalid values as `0`, provides `isValidExpiry(day, month)` to check a day against its month's length, and formats the card as `Type - Name - DD/MM.` |
 
 ## Example usage
 
@@ -157,9 +160,11 @@ Enter `0` at the menu to quit.
   when the program exits. There is no file or database persistence.
 - **Fixed set of receptions.** There are always five receptions (0–4). They
   cannot be created or deleted from the menu.
-- **Basic date validation.** The day is only checked to be 1–31 and the month
-  1–12, so dates like `31/02` are accepted. Out-of-range values are silently
-  stored as `0` (shown as `00`) without warning the user.
+- **No expiry year.** Cards store only a day and month, so there is no way to
+  tell whether a card has already expired, and `29/02` is always allowed.
+  The menu rejects impossible dates, but `GymCard`'s constructor and setters
+  used directly still only check the 1–31 / 1–12 ranges and store
+  out-of-range values as `0`.
 - **Duplicate cards.** When a reception has two identical cards (same type,
   name and expiry date), removing one removes the first matching card, so
   the remaining cards may be listed in a different order.

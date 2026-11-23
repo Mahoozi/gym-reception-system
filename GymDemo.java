@@ -199,8 +199,9 @@ public class GymDemo {
                     System.out.print("--> name of the membership card holder: ");
                     String name = readLine(kb);
                     System.out.print("--> Expiry day number and month (separate by a space): ");
-                    int day = readInt(kb);
-                    int month = readInt(kb);
+                    int[] expiry = readExpiryDate(kb);
+                    int day = expiry[0];
+                    int month = expiry[1];
 
                     GymCard newCard = new GymCard(type, name, day, month);
 
@@ -304,8 +305,9 @@ public class GymDemo {
                         }
 
                         System.out.print("--> Enter new expiry date day number and month (separate by a space): ");
-                        int newDay = readInt(kb);
-                        int newMonth = readInt(kb);
+                        int[] newExpiry = readExpiryDate(kb);
+                        int newDay = newExpiry[0];
+                        int newMonth = newExpiry[1];
 
                         receptions[upIndex].updateGymCardExpiry(which, newDay, newMonth);
 
@@ -395,6 +397,23 @@ public class GymDemo {
             String bad = kb.next();
             System.out.print("'" + bad + "' is not a whole number. Please enter a number: ");
         }
+    }
+
+    /**
+     * Reads an expiry day and month and returns them as {day, month}. A date
+     * that does not exist (e.g. 31 2 or 0 13) is rejected and both numbers
+     * are asked for again.
+     */
+    private static int[] readExpiryDate(Scanner kb) {
+        int day = readInt(kb);
+        int month = readInt(kb);
+        while (!GymCard.isValidExpiry(day, month)) {
+            System.out.println("Sorry but " + day + "/" + month + " is not a valid day and month.");
+            System.out.print("--> Try again: (a day that exists in that month, then month 1 to 12, e.g. 28 2): ");
+            day = readInt(kb);
+            month = readInt(kb);
+        }
+        return new int[] { day, month };
     }
 
     /**

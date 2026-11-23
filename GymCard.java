@@ -5,7 +5,9 @@
  * GymCard represents a membership card issued to a gym member. It stores the
  * membership type, the card holder's name, and the card's expiry date
  * (day and month). Day and month values are validated: anything outside
- * 1-31 (day) or 1-12 (month) is stored as 0.
+ * 1-31 (day) or 1-12 (month) is stored as 0. isValidExpiry also checks the
+ * day against the length of the month, so callers can reject dates such as
+ * 31/02 before creating or updating a card.
  *
  * Reception keeps an array of GymCard objects for the cards registered at
  * each reception desk.
@@ -70,6 +72,20 @@ public class GymCard {
             this.month = other.month;
         else
             this.month = 0;
+    }
+
+    // ---------------------------------------------------------
+    // Expiry date validation
+    // ---------------------------------------------------------
+
+    // Days in each month. February allows 29 because cards store no year.
+    private static final int[] DAYS_IN_MONTH = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    /** True if day/month is a real calendar date (month 1-12, day within that month). */
+    public static boolean isValidExpiry(int day, int month) {
+        if (month < 1 || month > 12)
+            return false;
+        return day >= 1 && day <= DAYS_IN_MONTH[month - 1];
     }
 
     // ---------------------------------------------------------
