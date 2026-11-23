@@ -109,9 +109,13 @@ public class GymPasses {
 
     // ---------------------------------------------------------
     // Adds the given numbers of passes to the existing counts
-    // (arguments in order: Regular, Student, Senior, Weekend, Weekly)
+    // (arguments in order: Regular, Student, Senior, Weekend, Weekly).
+    // Throws IllegalArgumentException if any quantity is negative.
     // ---------------------------------------------------------
     public void addGymPasses(int a, int b, int c, int d, int e) {
+        if (a < 0 || b < 0 || c < 0 || d < 0 || e < 0) {
+            throw new IllegalArgumentException("Pass quantities to add cannot be negative");
+        }
         this.Regularpass += a;
         this.Studentpass += b;
         this.Seniorpass  += c;

@@ -18,7 +18,8 @@ or update their data.
   update a card's expiry day and month. The membership type and holder name
   are read as whole lines, so names with spaces such as `John Smith` work.
 - **Sell passes:** add passes of each type to a reception and see its new
-  total value.
+  total value. Negative quantities are rejected and all five numbers are
+  asked for again.
 - **Input checks:** reception and card numbers are re-prompted until they are
   in range, and unknown menu choices are rejected. Anything that is not a
   whole number where a number is expected is rejected and asked for again.
@@ -80,7 +81,7 @@ gym-reception-system/
 |-------------|----------------|
 | `GymDemo`   | Builds five sample receptions, displays the menu, reads user input with `Scanner`, and calls into `Reception`. It keeps its own copy of each reception's cards so the user can pick a card by number. |
 | `Reception` | Holds one `GymPasses` object and an array of `GymCard` objects, deep-copying both. It compares receptions (by total value, by pass counts, and by total value plus card count), adds, removes and updates cards, adds passes, and formats its contents for display. |
-| `GymPasses` | Stores the count of Regular, Student, Senior, Weekend and Weekly passes, holds the price of each type, adds passes, computes the total dollar value, and compares pass counts. |
+| `GymPasses` | Stores the count of Regular, Student, Senior, Weekend and Weekly passes, holds the price of each type, adds passes (rejecting negative quantities with an `IllegalArgumentException`), computes the total dollar value, and compares pass counts. |
 | `GymCard`   | Stores a membership type, holder name and expiry day/month. It validates the day (1–31) and month (1–12), stores invalid values as `0`, and formats the card as `Type - Name - DD/MM.` |
 
 ## Example usage
@@ -159,8 +160,6 @@ Enter `0` at the menu to quit.
 - **Basic date validation.** The day is only checked to be 1–31 and the month
   1–12, so dates like `31/02` are accepted. Out-of-range values are silently
   stored as `0` (shown as `00`) without warning the user.
-- **No checks on pass quantities.** Negative pass counts are accepted when
-  adding passes, which can lower a reception's totals.
 - **Duplicate cards.** When a reception has two identical cards (same type,
   name and expiry date), removing one removes the first matching card, so
   the remaining cards may be listed in a different order.

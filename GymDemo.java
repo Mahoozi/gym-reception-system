@@ -340,6 +340,17 @@ public class GymDemo {
                     int weekend = readInt(kb);
                     int weekly = readInt(kb);
 
+                    // Passes can only be added, so every quantity must be 0 or more
+                    while (reg < 0 || stu < 0 || sen < 0 || weekend < 0 || weekly < 0) {
+                        System.out.println("Sorry, pass quantities cannot be negative.");
+                        System.out.print("--> Try again: Enter 5 numbers (0 or more) separated by a space: ");
+                        reg = readInt(kb);
+                        stu = readInt(kb);
+                        sen = readInt(kb);
+                        weekend = readInt(kb);
+                        weekly = readInt(kb);
+                    }
+
                     int total = receptions[passIndex].addGymPasses(reg, stu, sen, weekend, weekly);
                     System.out.println("You now have $" + total);
                     break;
