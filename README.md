@@ -15,7 +15,8 @@ or update their data.
   - by the number of passes of each type
   - by total pass value *and* number of membership cards
 - **Manage membership cards:** add a card, remove a card by its position, and
-  update a card's expiry day and month.
+  update a card's expiry day and month. The membership type and holder name
+  are read as whole lines, so names with spaces such as `John Smith` work.
 - **Sell passes:** add passes of each type to a reception and see its new
   total value.
 - **Input checks:** reception and card numbers are re-prompted until they are
@@ -155,9 +156,6 @@ Enter `0` at the menu to quit.
   when the program exits. There is no file or database persistence.
 - **Fixed set of receptions.** There are always five receptions (0–4). They
   cannot be created or deleted from the menu.
-- **Single-word values.** The membership type and card holder name are read as
-  single words, so a name such as `John Smith` is not supported and makes the
-  program exit with an error.
 - **Basic date validation.** The day is only checked to be 1–31 and the month
   1–12, so dates like `31/02` are accepted. Out-of-range values are silently
   stored as `0` (shown as `00`) without warning the user.

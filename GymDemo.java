@@ -188,11 +188,16 @@ public class GymDemo {
                         addIndex = readInt(kb);
                     }
 
+                    // The type and name are read as whole lines so they may contain
+                    // spaces (e.g. "John Smith"). First drop the rest of the line
+                    // that held the reception number.
+                    skipRestOfLine(kb);
+
                     System.out.println("Please enter the following information so that we may complete the membership-");
                     System.out.print("--> Type of membership (Basic, Standard, Premium, PremiumPlus): ");
-                    String type = kb.next();
+                    String type = readLine(kb);
                     System.out.print("--> name of the membership card holder: ");
-                    String name = kb.next();
+                    String name = readLine(kb);
                     System.out.print("--> Expiry day number and month (separate by a space): ");
                     int day = readInt(kb);
                     int month = readInt(kb);
@@ -378,6 +383,31 @@ public class GymDemo {
             }
             String bad = kb.next();
             System.out.print("'" + bad + "' is not a whole number. Please enter a number: ");
+        }
+    }
+
+    /**
+     * Reads a whole line of text, trimmed, so values may contain spaces.
+     * Blank lines are rejected and the user is asked again. If input ends,
+     * the program exits.
+     */
+    private static String readLine(Scanner kb) {
+        while (true) {
+            if (!kb.hasNextLine()) {
+                exitOnClosedInput();
+            }
+            String line = kb.nextLine().trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+            System.out.print("This cannot be empty. Please try again: ");
+        }
+    }
+
+    /** Discards whatever is left on the current input line (usually just the newline). */
+    private static void skipRestOfLine(Scanner kb) {
+        if (kb.hasNextLine()) {
+            kb.nextLine();
         }
     }
 
